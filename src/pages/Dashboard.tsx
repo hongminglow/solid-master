@@ -1,28 +1,17 @@
 import type { Component } from "solid-js";
 import { createEffect, createResource, For, Show } from "solid-js";
 
-import { useAuth } from "../store/auth";
-import { useUI } from "../store/ui-store";
-import StatCard from "../shared/StatCard";
+import { useAuth } from "@/store/auth";
+import { useUI } from "@/store/ui-store";
+import { StatCard } from "@/shared/components/StatCard";
+import { api } from "@/shared/services/api";
 
-const fetchUsers = async () => {
-	const res = await fetch("https://jsonplaceholder.typicode.com/users");
-	if (!res.ok) throw new Error("Failed to fetch users");
-	return res.json() as Promise<Array<{ id: number; name: string }>>;
-};
-
-const fetchTodos = async () => {
-	const res = await fetch("https://jsonplaceholder.typicode.com/todos?_limit=10");
-	if (!res.ok) throw new Error("Failed to fetch todos");
-	return res.json() as Promise<Array<{ id: number; title: string; completed: boolean }>>;
-};
-
-const Dashboard: Component = () => {
+export const Dashboard = () => {
 	const { state } = useAuth();
 	const { state: ui, toggleTheme, incrementClicks } = useUI();
 
-	const [users] = createResource(fetchUsers);
-	const [todos] = createResource(fetchTodos);
+	const [users] = createResource(() => api.getUsers());
+	const [todos] = createResource(() => api.getTodos(10));
 
 	createEffect(() => {
 		// Simple effect to show Solid's reactive tracking: respond to theme changes.
@@ -150,5 +139,3 @@ const Dashboard: Component = () => {
 		</div>
 	);
 };
-
-export default Dashboard;

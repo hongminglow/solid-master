@@ -1,11 +1,10 @@
-import type { ParentComponent } from "solid-js";
-import { Show } from "solid-js";
+import { ParentComponent, Show } from "solid-js";
 import { Navigate } from "@solidjs/router";
 
-import { useAuth } from "../store/auth";
-import { useUI } from "../store/ui-store";
+import { useAuth } from "@/store/auth";
+import { useUI } from "@/store/ui-store";
 
-const GuestLayout: ParentComponent = (props) => {
+export const GuestLayout: ParentComponent = ({ children }) => {
 	const { isAuthenticated } = useAuth();
 	const { state: ui } = useUI();
 
@@ -18,12 +17,10 @@ const GuestLayout: ParentComponent = (props) => {
 							<p class="text-xs uppercase tracking-[0.3em] text-emerald-500">Solid playground</p>
 							<h1 class="text-2xl font-semibold text-slate-900 dark:text-slate-50">Welcome back</h1>
 						</div>
-						{props.children}
+						{children}
 					</div>
 				</div>
 			</div>
 		</Show>
 	);
 };
-
-export default GuestLayout;

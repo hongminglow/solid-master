@@ -1,25 +1,33 @@
 import type { Component } from "solid-js";
 import { createSignal, Show } from "solid-js";
-import { createForm, minLength, required } from "@modular-forms/solid";
+import { createForm, minLength, required, valiForm } from "@modular-forms/solid";
 import { useNavigate, useLocation } from "@solidjs/router";
 
-import { useAuth } from "../store/auth";
-import { useUI } from "../store/ui-store";
+import { useAuth } from "@/store/auth";
+import { useUI } from "@/store/ui-store";
+import * as v from "valibot";
 
-export type LoginForm = {
-	email: string;
-	password: string;
-	remember?: boolean;
-};
+const LoginSchema = v.object({
+	email: v.pipe(v.string(), v.nonEmpty("Please enter your email."), v.email("The email address is badly formatted.")),
+	password: v.pipe(
+		v.string(),
+		v.nonEmpty("Please enter your password."),
+		v.minLength(4, "Please enter at least 4 characters.")
+	),
+	remember: v.optional(v.boolean()),
+});
 
-const Login: Component = () => {
+type LoginForm = v.InferInput<typeof LoginSchema>;
+
+export const Login = () => {
 	const { login } = useAuth();
 	const { incrementClicks } = useUI();
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const [form, { Form, Field }] = createForm<LoginForm>({
+	const [, { Form, Field }] = createForm<LoginForm>({
 		initialValues: { email: "", password: "" },
+		validate: valiForm(LoginSchema),
 	});
 
 	const [submitting, setSubmitting] = createSignal(false);
@@ -47,7 +55,7 @@ const Login: Component = () => {
 			</div>
 
 			<Form onSubmit={onSubmit} class="space-y-4">
-				<Field name="email" validate={[required("Email is required")]}>
+				<Field name="email">
 					{(field, props) => (
 						<label class="space-y-1 text-sm font-medium text-slate-700 dark:text-slate-200">
 							<div>Email</div>
@@ -65,7 +73,7 @@ const Login: Component = () => {
 					)}
 				</Field>
 
-				<Field name="password" validate={[required("Password is required"), minLength(4, "Min 4 characters")]}>
+				<Field name="password">
 					{(field, props) => (
 						<label class="space-y-1 text-sm font-medium text-slate-700 dark:text-slate-200">
 							<div>Password</div>
@@ -103,6 +111,7 @@ const Login: Component = () => {
 				<p class="text-sm text-slate-600 dark:text-slate-400">
 					Clicks are tracked in a global store and reused across the app.
 				</p>
+
 				<button
 					type="button"
 					onClick={incrementClicks}
@@ -114,5 +123,3 @@ const Login: Component = () => {
 		</div>
 	);
 };
-
-export default Login;

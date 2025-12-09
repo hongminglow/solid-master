@@ -1,4 +1,4 @@
-import type { Component, JSX } from "solid-js";
+import type { JSX } from "solid-js";
 
 type StatCardProps = {
 	title: string;
@@ -6,7 +6,7 @@ type StatCardProps = {
 	helper?: string | JSX.Element;
 };
 
-const StatCard: Component<StatCardProps> = (props) => {
+export const StatCard = (props: StatCardProps) => {
 	return (
 		<div class="rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-sm transition hover:-translate-y-px dark:border-slate-800 dark:bg-slate-900/80">
 			<p class="text-xs uppercase tracking-[0.2em] text-emerald-500">{props.title}</p>
@@ -15,5 +15,3 @@ const StatCard: Component<StatCardProps> = (props) => {
 		</div>
 	);
 };
-
-export default StatCard;

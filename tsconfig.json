@@ -12,11 +12,13 @@
 		"module": "ESNext",
 		"moduleResolution": "bundler",
 		"noEmit": true,
-		"baseUrl": "./src",
-		"ignoreDeprecations": "6.0",
+
 		// Type Checking & Safety
 		"strict": true,
 		"skipLibCheck": true,
-		"types": ["vite/client", "node"]
+		"types": ["vite/client", "node"],
+		"paths": {
+			"@/*": ["./src/*"]
+		}
 	}
 }

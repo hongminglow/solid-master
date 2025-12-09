@@ -1,37 +1,43 @@
-import type { Component } from "solid-js";
 import { Router, Route, Navigate } from "@solidjs/router";
-
 import { AuthProvider, useAuth } from "./store/auth";
 import { UIProvider } from "./store/ui-store";
-import AuthLayout from "./layouts/AuthLayout";
-import GuestLayout from "./layouts/GuestLayout";
-import Login from "./routes/Login";
-import Dashboard from "./routes/Dashboard";
+import { Playground } from "./pages/playground/Playground";
+import { Dashboard } from "./pages/Dashboard";
+import { Login } from "./pages/Login";
+import { GuestLayout } from "./shared/layout/GuestLayout";
+import { AuthLayout } from "./shared/layout/AuthLayout";
 
-const FallbackRedirect: Component = () => {
+const FallbackRedirect = () => {
 	const { isAuthenticated } = useAuth();
 	return <Navigate href={isAuthenticated() ? "/" : "/login"} />;
 };
 
-const LoginPage: Component = () => (
+const LoginPage = () => (
 	<GuestLayout>
 		<Login />
 	</GuestLayout>
 );
 
-const DashboardPage: Component = () => (
+const DashboardPage = () => (
 	<AuthLayout>
 		<Dashboard />
 	</AuthLayout>
 );
 
-const App: Component = () => {
+const PlaygroundPage = () => (
+	<AuthLayout>
+		<Playground />
+	</AuthLayout>
+);
+
+const App = () => {
 	return (
 		<AuthProvider>
 			<UIProvider>
 				<Router>
 					<Route path="/login" component={LoginPage} />
 					<Route path="/" component={DashboardPage} />
+					<Route path="/playground" component={PlaygroundPage} />
 					<Route path="*" component={FallbackRedirect} />
 				</Router>
 			</UIProvider>
