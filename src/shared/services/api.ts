@@ -3,36 +3,9 @@
  * Using JSONPlaceholder for demo purposes.
  */
 
+import { Post, Todo, User } from "@/shared/types/services";
+
 const BASE_URL = "https://jsonplaceholder.typicode.com";
-
-export type User = {
-	id: number;
-	name: string;
-	email: string;
-	username: string;
-};
-
-export type Todo = {
-	id: number;
-	userId: number;
-	title: string;
-	completed: boolean;
-};
-
-export type Post = {
-	id: number;
-	userId: number;
-	title: string;
-	body: string;
-};
-
-export type Comment = {
-	id: number;
-	postId: number;
-	name: string;
-	email: string;
-	body: string;
-};
 
 // Simulated delay for demo purposes
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

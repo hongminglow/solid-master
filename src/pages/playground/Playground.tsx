@@ -2,6 +2,7 @@ import { StoreDemo } from "./StoreDemo";
 import { ConditionalDemo } from "./ConditionalDemo";
 import { DynamicDemo } from "./DynamicDemo";
 import { ListRenderingDemo } from "./ListRenderingDemo";
+import { EventDemo } from "./EventDemo";
 import { ErrorBoundaryDemo } from "./ErrorBoundaryDemo";
 import { NestedEffectsDemo } from "./NestedEffectsDemo";
 import { ResourceDemo } from "./ResourceDemo";
@@ -24,6 +25,7 @@ export const Playground = () => {
 			<ErrorBoundaryDemo />
 			<NestedEffectsDemo />
 			<ResourceDemo />
+			<EventDemo />
 		</div>
 	);
 };

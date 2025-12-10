@@ -6,6 +6,7 @@ import { CodeBlock } from "@/shared/components/CodeBlock";
 import { AlertSuccess } from "./components/alert/AlertSuccess";
 import { AlertWarning } from "./components/alert/AlertWarning";
 import { AlertInfo } from "./components/alert/AlertInfo";
+import { AlertError } from "./components/alert/AlertError";
 
 const alertComponents = {
 	success: AlertSuccess,
