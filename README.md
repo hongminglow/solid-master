@@ -1,6 +1,6 @@
 ## SolidJS auth + dashboard demo
 
-This repo is a compact playground for React developers to get familiar with SolidJS. It demonstrates routing, guarded layouts, global state, forms, and data fetching in a single small app.
+This repo is a compact SolidJS playground tailored for React developers. It highlights the syntax differences, reactivity model, and control-flow helpers that Solid provides while keeping familiar screen flows like login, auth guards, and dashboards.
 
 ### What’s inside
 
@@ -39,6 +39,14 @@ Use any email and any password with 4+ characters to sign in.
 - Routing guards: guest layout redirects authenticated users, auth layout redirects guests
 - Data fetching: `createResource` + derived data for counts
 - Forms: `createForm` with `required` + `minLength` validators and field-level errors
+
+### Playground highlights
+
+- **Global store demo** (`StoreDemo`): shows Solid store path syntax, nested updates with `produce`, and array mutations so React developers can compare to `useReducer` or Zustand-style setters.
+- **Control flow demos** (`ConditionalDemo`, `ListRenderingDemo`, `DynamicDemo`): illustrate `<Show>`, `<Switch>`, `<Suspense>`, `<For>`, and `<Dynamic>` in action with concise UI patterns.
+- **Error boundary & nested effects**: `ErrorBoundaryDemo` and `NestedEffectsDemo` demonstrate Solid’s granular rendering/disposal for error recovery and cleanup-friendly effects.
+- **Data fetching** (`ResourceDemo`): contrasts `createResource`, manual refetch/mutate, and how Solid components stay reactive with async data.
+- **Event handling case study** (`EventDemo`): explains the `onClick` (delegated) vs `on:click` (native) distinction from the docs, showcases shared handlers, propagation differences, and how to stop bubbling when you need to.
 
 ### Build
 
